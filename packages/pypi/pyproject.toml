@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "escalated-locale"
+version = "0.1.0"
+description = "Central translation strings for the Escalated portfolio (consumed by escalated-django and any other Python project)."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Escalated", email = "support@escalated.dev" }]
+requires-python = ">=3.10"
+keywords = ["escalated", "i18n", "translations", "locale", "django"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Localization",
+  "Framework :: Django",
+]
+
+[project.urls]
+Homepage = "https://github.com/escalated-dev/escalated-locale"
+Source = "https://github.com/escalated-dev/escalated-locale"
+Issues = "https://github.com/escalated-dev/escalated-locale/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["escalated_locale*"]
+
+[tool.setuptools.package-data]
+escalated_locale = ["locales/*.json", "locale/**/*.po", "locale/**/*.mo"]

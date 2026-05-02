@@ -10,7 +10,8 @@ $targets = @(
   @{ Path = "packages/maven/src/main/resources/locales" },
   @{ Path = "packages/nuget/locales" },
   @{ Path = "packages/hex/priv/locales" },
-  @{ Path = "packages/go/locales" }
+  @{ Path = "packages/go/locales" },
+  @{ Path = "packages/pypi/escalated_locale/locales" }
 )
 
 foreach ($target in $targets) {

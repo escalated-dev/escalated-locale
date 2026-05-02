@@ -38,6 +38,15 @@ portfolio source repos
 
 Each plugin should load the package locale data first, then layer its own framework-local overrides on top. The plugin remains free to keep framework-specific translations or emergency patches in its own repo; the central package provides the base catalog and fallback chain.
 
+## Conventions
+
+- **Locale set**: `ar`, `de`, `en`, `es`, `fr`, `it`, `ja`, `ko`, `nl`, `pl`, `pt-BR`, `ru`, `tr`, `zh-CN`. New locales are added by copying `en.json`.
+- **Placeholder syntax**: `{name}` (curly-brace named tokens, e.g. `"Welcome {firstName}"`). The wrapper `t()` helpers interpolate these.
+- **Key naming**: lowerCamelCase with dot-separated namespaces (e.g. `ticket.status.open`).
+- **Conflict resolution** (when the same key appeared in multiple source repos with divergent values): Vue frontend wins, then Laravel, Filament, Rails, the compact backend cluster, Django, and WordPress in that order.
+- **Gettext namespaces**: Django strings live under `djangoStrings.*` and WordPress strings under `wordpressStrings.*`, keyed deterministically from the English `msgid`.
+- **Missing translations**: a key absent from a non-English locale falls back to the English value (no empty strings shipped).
+
 ## Packages
 
 ### npm

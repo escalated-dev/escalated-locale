@@ -435,6 +435,12 @@
 - `tr`: 1843 keys
 - `zh-CN`: 1843 keys
 
+## Publishing Gaps
+
+- GitHub Actions CI validates the committed `locales/*.json` bundle and synced package copies. It does not rebuild from sibling repos because those repos are not available in the workflow checkout.
+- Maven Central publishing is scaffolded, but signing and Central credentials still need to be wired through repository secrets before first release.
+- NuGet and Hex wrappers are scaffolded but were not exercised locally in this environment because `dotnet` and `elixir` are not installed here.
+
 ## Consolidated Sources
 
 ### `adonis`

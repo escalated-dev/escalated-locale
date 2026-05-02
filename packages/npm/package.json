@@ -1,0 +1,14 @@
+{
+  "name": "@escalated-dev/locale",
+  "version": "0.1.0",
+  "description": "Canonical Escalated locale bundle for JavaScript consumers.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "README.md",
+    "locales/*.json"
+  ],
+  "license": "MIT"
+}

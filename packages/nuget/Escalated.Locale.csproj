@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <PackageId>Escalated.Locale</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Escalated</Authors>
+    <Description>Canonical Escalated locale bundle for .NET consumers.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="locales\*.json" />
+  </ItemGroup>
+</Project>

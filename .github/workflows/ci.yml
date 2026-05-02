@@ -2,78 +2,20 @@ name: CI
 
 on:
   push:
-    branches: [main]
   pull_request:
 
 jobs:
-  validate-locales:
-    name: Validate locales/*.json
+  validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-
-      - name: Verify JSON syntax
-        run: |
-          if [ ! -d locales ] || ! ls locales/*.json >/dev/null 2>&1; then
-            echo "::warning::No JSON files in locales/ yet — skipping syntax check"
-            exit 0
-          fi
-          for f in locales/*.json; do
-            if ! jq empty "$f" >/dev/null 2>&1; then
-              echo "::error file=$f::invalid JSON"
-              exit 1
-            fi
-          done
-          echo "All locale files parse cleanly."
-
-      - name: Verify key parity vs en.json (warn-only)
-        if: hashFiles('locales/en.json') != ''
-        run: |
-          # Extract every leaf key path (dot-separated). Compare each locale to en.
-          extract_keys() {
-            jq -r '
-              [paths(scalars) | map(tostring) | join(".")]
-              | sort | .[]
-            ' "$1"
-          }
-          en_keys=$(extract_keys locales/en.json)
-          missing_total=0
-          extra_total=0
-          for f in locales/*.json; do
-            base=$(basename "$f" .json)
-            [ "$base" = "en" ] && continue
-            this_keys=$(extract_keys "$f")
-            missing=$(comm -23 <(echo "$en_keys") <(echo "$this_keys") | wc -l)
-            extra=$(comm -13 <(echo "$en_keys") <(echo "$this_keys") | wc -l)
-            if [ "$missing" -gt 0 ]; then
-              echo "::warning file=$f::$missing key(s) present in en.json missing from $base.json"
-              missing_total=$((missing_total + missing))
-            fi
-            if [ "$extra" -gt 0 ]; then
-              echo "::warning file=$f::$extra key(s) in $base.json absent from en.json"
-              extra_total=$((extra_total + extra))
-            fi
-          done
-          echo "Parity report: $missing_total missing, $extra_total extra (warnings only — not failing the build)."
-
-  sync-drift:
-    name: scripts/sync drift check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Run sync.sh
-        run: |
-          if [ ! -x scripts/sync.sh ]; then
-            chmod +x scripts/sync.sh 2>/dev/null || true
-          fi
-          bash scripts/sync.sh
-
-      - name: Verify packages/ matches locales/
-        run: |
-          if ! git diff --exit-code packages/ 2>/dev/null; then
-            echo "::error::packages/ drifted from locales/. Run scripts/sync.sh and commit the result."
-            git diff packages/ | head -100
-            exit 1
-          fi
-          echo "packages/ is in sync with locales/."
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate locale parity
+        run: python scripts/validate_locales.py
+      - name: Sync package copies
+        shell: pwsh
+        run: ./scripts/sync.ps1
+      - name: Verify generated files are committed
+        run: git diff --exit-code

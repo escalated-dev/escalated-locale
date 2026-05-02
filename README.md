@@ -1,2 +1,109 @@
 # escalated-locale
-Central source of truth for Escalated translations — published as a versioned package to npm, Packagist, RubyGems, Maven Central, NuGet, and Hex; consumed by the frontend and all backend plugins
+
+`escalated-locale` is the central source of truth for Escalated translations. It consolidates locale catalogs from the Vue frontend and the framework plugins into a single canonical `locales/{locale}.json` set, then republishes that data through thin ecosystem-specific packages.
+
+## Architecture
+
+```text
+portfolio source repos
+  -> escalated-locale/locales/*.json
+     -> npm package
+     -> Composer package
+     -> RubyGem
+     -> Maven package
+     -> NuGet package
+     -> Hex package
+     -> Go helper
+        -> consumed by framework plugins
+           -> merged with repo-local overrides at app boot
+```
+
+## How To Add A Translation
+
+1. Update the source translation in the portfolio repo, or edit `locales/en.json` directly if the central package is now the canonical owner.
+2. Run `python scripts/build_locales.py`.
+3. Run `pwsh ./scripts/sync.ps1`.
+4. Commit the locale changes and the synced package copies.
+5. Tag a release when the bundle is ready to publish.
+
+## How To Add A Locale
+
+1. Copy `locales/en.json` to `locales/{locale}.json`.
+2. Translate the values.
+3. Run `pwsh ./scripts/sync.ps1`.
+4. Commit the new locale and synced package copies.
+
+## Override Pattern
+
+Each plugin should load the package locale data first, then layer its own framework-local overrides on top. The plugin remains free to keep framework-specific translations or emergency patches in its own repo; the central package provides the base catalog and fallback chain.
+
+## Packages
+
+### npm
+
+```js
+const { getLocaleData, t } = require('@escalated-dev/locale')
+
+const messages = getLocaleData('fr')
+const label = t('ticket.subject', 'fr')
+```
+
+### Composer
+
+```php
+use Escalated\Locale\Locale;
+
+$messages = Locale::getLocaleData('fr');
+$label = Locale::translate('ticket.subject', 'fr');
+```
+
+### RubyGems
+
+```rb
+require "escalated/locale"
+
+messages = Escalated::Locale.get_locale_data("fr")
+label = Escalated::Locale.t("ticket.subject", "fr")
+```
+
+### Maven
+
+```java
+import dev.escalated.locale.Locale;
+
+Map<String, Object> messages = Locale.getLocaleData("fr");
+String label = Locale.translate("ticket.subject", "fr", Map.of());
+```
+
+### NuGet
+
+```csharp
+using Escalated.Locale;
+
+var messages = LocaleData.GetLocaleData("fr");
+var label = LocaleData.Translate("ticket.subject", "fr");
+```
+
+### Hex
+
+```elixir
+messages = Escalated.Locale.get_locale_data("fr")
+label = Escalated.Locale.t("ticket.subject", "fr")
+```
+
+### Go
+
+```go
+import escalatedlocale "github.com/escalated-dev/escalated-locale/packages/go"
+
+messages := escalatedlocale.GetLocaleData("fr")
+label, _ := escalatedlocale.Translate("ticket.subject", "fr", nil)
+```
+
+## Versioning
+
+Semantic versioning applies to the canonical JSON keys and wrapper APIs:
+
+- Major: key removals, key renames, or breaking wrapper API changes.
+- Minor: new keys or new locales.
+- Patch: string updates, fallback fixes, and packaging-only changes.

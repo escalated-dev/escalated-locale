@@ -1,0 +1,19 @@
+{
+  "name": "@escalated-dev/locale",
+  "version": "0.1.2",
+  "description": "Canonical Escalated locale bundle (root shim — entry points re-export packages/npm/).",
+  "main": "packages/npm/index.js",
+  "types": "packages/npm/index.d.ts",
+  "files": [
+    "packages/npm/index.js",
+    "packages/npm/index.d.ts",
+    "packages/npm/package.json",
+    "packages/npm/locales/*.json",
+    "locales/*.json"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/escalated-dev/escalated-locale"
+  }
+}

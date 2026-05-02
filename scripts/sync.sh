@@ -21,8 +21,12 @@ synced=0
 for pkg_dir in "$ROOT/packages"/*/; do
   pkg="$(basename "$pkg_dir")"
   case "$pkg" in
-    npm|composer|rubygems|nuget|hex|go)
+    npm|composer|rubygems|nuget|go)
       target="$pkg_dir/locales"
+      ;;
+    hex)
+      # Mix expects bundled assets under priv/. Match sync.ps1.
+      target="$pkg_dir/priv/locales"
       ;;
     maven)
       target="$pkg_dir/src/main/resources/locales"

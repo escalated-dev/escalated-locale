@@ -1,0 +1,26 @@
+{
+    "name": "escalated-dev/locale",
+    "description": "Canonical Escalated locale bundle for PHP consumers (Laravel, Symfony, WordPress, Filament).",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/escalated-dev/escalated-locale",
+    "support": {
+        "issues": "https://github.com/escalated-dev/escalated-locale/issues",
+        "source": "https://github.com/escalated-dev/escalated-locale"
+    },
+    "require": {
+        "php": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Escalated\\Locale\\": "packages/composer/src/"
+        }
+    },
+    "extra": {
+        "escalated-locale": {
+            "json-locales-dir": "packages/composer/locales",
+            "symfony-translations-dir": "packages/composer/translations",
+            "wordpress-languages-dir": "packages/composer/languages"
+        }
+    }
+}

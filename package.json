@@ -1,6 +1,6 @@
 {
   "name": "@escalated-dev/locale",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Canonical Escalated locale bundle (root shim \u00e2\u20ac\u201d entry points re-export packages/npm/).",
   "main": "packages/npm/index.js",
   "types": "packages/npm/index.d.ts",

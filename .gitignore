@@ -1,0 +1,36 @@
+# Local install artifacts — this repo is published, not consumed.
+# Plugin repos pull from registries / git tags; nothing here needs node_modules.
+node_modules/
+vendor/
+
+# Lock files for the root-shim manifests are not consumed by anyone
+# (the shims exist only so VCS / tarball deps resolve cleanly).
+/package-lock.json
+/composer.lock
+
+# Python build / dist
+packages/pypi/dist/
+packages/pypi/build/
+packages/pypi/*.egg-info/
+__pycache__/
+*.pyc
+
+# Ruby build
+packages/rubygems/*.gem
+
+# Maven build
+packages/maven/target/
+
+# .NET build
+packages/nuget/bin/
+packages/nuget/obj/
+
+# Hex build
+packages/hex/_build/
+packages/hex/deps/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store

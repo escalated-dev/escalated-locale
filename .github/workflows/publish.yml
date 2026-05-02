@@ -18,14 +18,17 @@ jobs:
         run: ./scripts/sync.ps1
       - name: Publish npm package
         run: |
-          if [ -z "${NPM_TOKEN}" ]; then
+          if [ -z "${NODE_AUTH_TOKEN}" ]; then
             echo "NPM_TOKEN is not configured. Skipping npm publish."
             exit 0
           fi
           cd packages/npm
           npm publish --access public
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # setup-node@v4 with registry-url writes an .npmrc that reads
+          # //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}, so the
+          # secret must surface under that exact env name (not NPM_TOKEN).
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   composer:
     runs-on: ubuntu-latest

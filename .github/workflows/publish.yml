@@ -166,6 +166,8 @@ jobs:
     needs: [npm, composer, rubygems, maven, nuget, hex, pypi, go]
     if: always()
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Create GitHub Release
@@ -173,6 +175,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           tag="${GITHUB_REF#refs/tags/}"
+          # If the release already exists (e.g. publish workflow re-ran), skip cleanly.
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release $tag already exists. Skipping creation."
+            exit 0
+          fi
           gh release create "$tag" \
             --title "$tag" \
             --notes "Automated release for $tag. See the workflow run for per-ecosystem publish status; skipped ecosystems are missing their secret. Go module is available at \`github.com/escalated-dev/escalated-locale@$tag\`."

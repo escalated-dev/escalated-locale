@@ -22,3 +22,18 @@ foreach ($target in $targets) {
 }
 
 Write-Host "Synchronized locales into package directories."
+
+# Build framework-native artifacts (Rails YAML, Django/WP/Phoenix gettext,
+# Symfony YAML, Spring properties). See scripts/build_native_artifacts.py.
+$buildScript = Join-Path $PSScriptRoot "build_native_artifacts.py"
+$pythonExe = Get-Command python -ErrorAction SilentlyContinue
+if (-not $pythonExe) {
+  $pythonExe = Get-Command python3 -ErrorAction SilentlyContinue
+}
+if (-not $pythonExe) {
+  throw "sync: python (or python3) is required to build native locale artifacts"
+}
+& $pythonExe.Source $buildScript
+if ($LASTEXITCODE -ne 0) {
+  throw "sync: build_native_artifacts.py failed (exit $LASTEXITCODE)"
+}

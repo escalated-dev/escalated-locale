@@ -44,3 +44,16 @@ for pkg_dir in "$ROOT/packages"/*/; do
 done
 
 echo "sync: done ($synced package(s))"
+
+# Build framework-native artifacts (Rails YAML, Django/WP/Phoenix gettext,
+# Symfony YAML, Spring properties). See scripts/build_native_artifacts.py.
+if command -v python3 >/dev/null 2>&1; then
+  PYTHON_BIN="python3"
+elif command -v python >/dev/null 2>&1; then
+  PYTHON_BIN="python"
+else
+  echo "sync: python3 (or python) is required to build native locale artifacts" >&2
+  exit 1
+fi
+
+"$PYTHON_BIN" "$ROOT/scripts/build_native_artifacts.py"

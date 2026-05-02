@@ -7,13 +7,14 @@
 ```text
 portfolio source repos
   -> escalated-locale/locales/*.json
-     -> npm package
-     -> Composer package
-     -> RubyGem
-     -> Maven package
-     -> NuGet package
-     -> Hex package
-     -> Go helper
+     -> npm package        (@escalated-dev/locale)
+     -> Composer package   (escalated-dev/locale)
+     -> RubyGem            (escalated-locale)
+     -> PyPI package       (escalated-locale)
+     -> Maven package      (dev.escalated:escalated-locale)
+     -> NuGet package      (Escalated.Locale)
+     -> Hex package        (:escalated_locale)
+     -> Go module          (github.com/escalated-dev/escalated-locale/packages/go)
         -> consumed by framework plugins
            -> merged with repo-local overrides at app boot
 ```
@@ -21,8 +22,8 @@ portfolio source repos
 ## How To Add A Translation
 
 1. Update the source translation in the portfolio repo, or edit `locales/en.json` directly if the central package is now the canonical owner.
-2. Run `python scripts/build_locales.py`.
-3. Run `pwsh ./scripts/sync.ps1`.
+2. Run `python scripts/build_locales.py` (regenerates the canonical JSON from upstream sources, if needed).
+3. Run the sync script: `bash scripts/sync.sh` (Linux/macOS/git-bash) or `pwsh ./scripts/sync.ps1` (Windows). Both write the same outputs — JSON copies into each `packages/*/` plus framework-native artifacts (Rails YAML, Django/WP gettext, Symfony YAML, Spring properties, Phoenix .po) via `scripts/build_native_artifacts.py`.
 4. Commit the locale changes and the synced package copies.
 5. Tag a release when the bundle is ready to publish.
 
@@ -30,7 +31,7 @@ portfolio source repos
 
 1. Copy `locales/en.json` to `locales/{locale}.json`.
 2. Translate the values.
-3. Run `pwsh ./scripts/sync.ps1`.
+3. Run `bash scripts/sync.sh` (or `pwsh ./scripts/sync.ps1`).
 4. Commit the new locale and synced package copies.
 
 ## Override Pattern
@@ -89,6 +90,22 @@ var label = LocaleData.Translate("ticket.subject", "fr");
 ```elixir
 messages = Escalated.Locale.get_locale_data("fr")
 label = Escalated.Locale.t("ticket.subject", "fr")
+```
+
+### PyPI (Python / Django)
+
+```python
+from escalated_locale import get_locale_data, get_django_locale_path
+
+messages = get_locale_data("fr")  # returns dict from locales/fr.json
+
+# In Django settings.py, layer this dir into LOCALE_PATHS so
+# escalated_locale/locale/<lang>/LC_MESSAGES/django.{po,mo} is picked up
+# by gettext.
+LOCALE_PATHS = [
+    BASE_DIR / "locale",  # project overrides (highest priority)
+    str(get_django_locale_path()),
+]
 ```
 
 ### Go

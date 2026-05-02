@@ -140,6 +140,10 @@ escalated-locale/
 │   │   ├── mix.exs
 │   │   ├── lib/escalated/locale.ex
 │   │   └── README.md
+│   ├── pypi/                     # escalated-locale (Django)
+│   │   ├── pyproject.toml
+│   │   ├── escalated_locale/__init__.py
+│   │   └── README.md
 │   └── go/                       # importable as github.com/escalated-dev/escalated-locale
 │       ├── locale.go
 │       └── README.md             # Go uses the repo root as the module; this dir is just for the loader
@@ -156,24 +160,23 @@ Each per-ecosystem wrapper should:
 
 ## Phase 4 — Publishing CI
 
-Add `.github/workflows/publish.yml` that runs on every tag push (e.g., `v1.0.0`). It should:
+**Handled by a parallel agent.** Workflows under `.github/workflows/` (`publish.yml` + `ci.yml`) and `scripts/sync.{sh,ps1}` are being written separately and may already exist on `main` by the time you reach this phase. **Do not duplicate them.**
 
-1. Run `scripts/sync.*` to refresh embedded copies in every package dir.
-2. Publish in parallel:
-   - **npm**: `npm publish` from `packages/npm/` — needs `NPM_TOKEN` secret.
-   - **Packagist**: trigger via webhook (Packagist auto-syncs from GitHub). No publish action needed; just ensure `composer.json` is at `packages/composer/composer.json` and the user has linked Packagist to this repo.
-   - **RubyGems**: `gem build && gem push` from `packages/rubygems/` — needs `RUBYGEMS_API_KEY` secret.
-   - **Maven Central**: `mvn deploy` via the `central-publishing-maven-plugin` from `packages/maven/` — needs `MAVEN_GPG_PASSPHRASE`, `MAVEN_USERNAME`, `MAVEN_PASSWORD` secrets.
-   - **NuGet**: `dotnet nuget push` from `packages/nuget/` — needs `NUGET_API_KEY` secret.
-   - **Hex**: `mix hex.publish` from `packages/hex/` — needs `HEX_API_KEY` secret.
-   - **Go**: nothing — Go modules are pulled directly from git tags. Ensure the tag is pushed.
+Your responsibility for this phase is limited to populating each `packages/{ecosystem}/` directory with:
+- A correct, publishable manifest (`package.json`, `composer.json`, `*.gemspec`, `pom.xml`, `*.csproj`, `mix.exs`, `pyproject.toml`/`setup.py`, plus `go.mod`-equivalent — but Go uses the repo root, see below).
+- Minimal loader code in that ecosystem's idiom (`getLocaleData(locale)` + optional `t()` helper).
+- Embedded `locales/` directory (the sync script either generates this or the manifest declares the JSON files as package data — your call).
 
-If any secret is missing, fail soft with a clear log message and skip that ecosystem (so the user can add secrets later without re-publishing the others).
+Add an additional ecosystem missed in the original layout: `packages/pypi/` for Django (Python), publishable to PyPI as `escalated-locale`.
 
-Add `.github/workflows/ci.yml` that runs on every push/PR:
+If `scripts/sync.{sh,ps1}` already exists on `main` when you arrive, use it. If not, write a minimal version that copies `locales/*.json` into each `packages/*/locales/` directory; the CI agent will adapt the workflow to whatever sync scheme you settle on.
+
+When you finish, each `packages/*/` should be in a "would publish cleanly if pushed to a tag" state — the publish workflow is already wired.
+
+Add `.github/workflows/ci.yml` checks (the CI agent likely has these in place already):
 1. Lint all JSON files for syntax.
 2. Verify key parity: every key in `en.json` must exist in every other locale (warn on missing — don't fail).
-3. Run `scripts/sync.*` and verify no diff (the embedded copies must be in sync with `/locales/`).
+3. Run `scripts/sync.*` and verify no diff.
 
 ## Phase 5 — Documentation
 

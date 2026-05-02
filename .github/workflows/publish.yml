@@ -128,9 +128,51 @@ jobs:
         env:
           HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
 
+  pypi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - shell: pwsh
+        run: ./scripts/sync.ps1
+      - name: Publish PyPI package
+        run: |
+          if [ -z "${PYPI_API_TOKEN}" ]; then
+            echo "PYPI_API_TOKEN is not configured. Skipping PyPI publish."
+            exit 0
+          fi
+          if [ ! -d packages/pypi ]; then
+            echo "packages/pypi/ is missing. Skipping PyPI publish."
+            exit 0
+          fi
+          cd packages/pypi
+          python -m pip install --upgrade build twine
+          python -m build
+          python -m twine upload --non-interactive dist/*
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+
   go:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Go publish note
         run: echo "Go consumers read from Git tags directly. No registry publish step is required."
+
+  github-release:
+    needs: [npm, composer, rubygems, maven, nuget, hex, pypi, go]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${GITHUB_REF#refs/tags/}"
+          gh release create "$tag" \
+            --title "$tag" \
+            --notes "Automated release for $tag. See the workflow run for per-ecosystem publish status; skipped ecosystems are missing their secret. Go module is available at \`github.com/escalated-dev/escalated-locale@$tag\`."

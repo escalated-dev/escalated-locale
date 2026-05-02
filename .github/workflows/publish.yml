@@ -23,14 +23,18 @@ jobs:
             echo "NPM_TOKEN is not configured. Skipping npm publish."
             exit 0
           fi
+          # Diagnostic: token length (no value leakage). 36 = legacy classic, 43 = npm_-prefixed.
+          echo "NPM_TOKEN length: ${#NPM_TOKEN}"
+          # Configure auth via `npm config set` so the value lands in the
+          # exact file npm reads at publish time.
+          npm config set "//registry.npmjs.org/:_authToken" "$NPM_TOKEN"
+          npm config set "@escalated-dev:registry" "https://registry.npmjs.org/"
+          # Sanity: this fails fast with ENEEDAUTH if the token isn't being read.
+          # If it returns a username, auth is working and any subsequent 404 is a
+          # permissions issue at the registry side, not a workflow plumbing bug.
+          npm whoami || { echo "::error::npm whoami failed — token isn't authenticating"; exit 1; }
           cd packages/npm
-          # Write the .npmrc explicitly. setup-node@v4's registry-url +
-          # NODE_AUTH_TOKEN indirection has been 404-ing in CI even when
-          # the same token publishes cleanly from a local clone — bypass
-          # it entirely.
-          printf '//registry.npmjs.org/:_authToken=%s\n@escalated-dev:registry=https://registry.npmjs.org/\n' "$NPM_TOKEN" > .npmrc
           npm publish --access public
-          rm -f .npmrc
 
   composer:
     runs-on: ubuntu-latest

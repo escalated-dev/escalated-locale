@@ -24,7 +24,7 @@ defmodule EscalatedLocale.MixProject do
   defp package do
     [
       licenses: ["MIT"],
-      files: ["lib", "mix.exs", "README.md", "priv/locales"]
+      files: ["lib", "mix.exs", "README.md", "priv/locales", "priv/gettext"]
     ]
   end
 end

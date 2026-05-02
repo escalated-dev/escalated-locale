@@ -13,22 +13,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-          registry-url: "https://registry.npmjs.org"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish npm package
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          if [ -z "${NODE_AUTH_TOKEN}" ]; then
+          if [ -z "${NPM_TOKEN}" ]; then
             echo "NPM_TOKEN is not configured. Skipping npm publish."
             exit 0
           fi
           cd packages/npm
+          # Write the .npmrc explicitly. setup-node@v4's registry-url +
+          # NODE_AUTH_TOKEN indirection has been 404-ing in CI even when
+          # the same token publishes cleanly from a local clone — bypass
+          # it entirely.
+          printf '//registry.npmjs.org/:_authToken=%s\n@escalated-dev:registry=https://registry.npmjs.org/\n' "$NPM_TOKEN" > .npmrc
           npm publish --access public
-        env:
-          # setup-node@v4 with registry-url writes an .npmrc that reads
-          # //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}, so the
-          # secret must surface under that exact env name (not NPM_TOKEN).
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          rm -f .npmrc
 
   composer:
     runs-on: ubuntu-latest

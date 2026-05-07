@@ -831,7 +831,11 @@
       "step2": "2. Configure config/initializers/escalated.rb",
       "step3": "3. Añada los métodos escalated_agent? y escalated_admin? a su modelo User",
       "step4": "4. Instale los componentes Vue: copie desde vendor/escalated/resources/js/",
-      "step5": "5. Configure el resolvedor de páginas Inertia para incluir páginas de Escalated"
+      "step5": "5. Configure el resolvedor de páginas Inertia para incluir páginas de Escalated",
+      "runningMigrations": "Ejecutando migraciones",
+      "seedingPermissions": "Sembrando permisos y roles",
+      "runMigrationsConfirm": "¿Ejecutar las migraciones y sembrar los permisos por defecto ahora?",
+      "stepSeed": "Sembrar permisos y roles por defecto:"
     },
     "guestNotEnabled": "Los tickets de invitado no están habilitados.",
     "ticketNotFound": "Ticket no encontrado."

@@ -856,7 +856,11 @@
       "step2": "2. config/initializers/escalated.rbを設定",
       "step3": "3. Userモデルにescalated_agent?とescalated_admin?メソッドを追加",
       "step4": "4. Vueコンポーネントをインストール: vendor/escalated/resources/js/からコピー",
-      "step5": "5. EscalatedページをInertiaページリゾルバに設定"
+      "step5": "5. EscalatedページをInertiaページリゾルバに設定",
+      "runningMigrations": "マイグレーションを実行中",
+      "seedingPermissions": "権限とロールをシード中",
+      "runMigrationsConfirm": "今すぐマイグレーションを実行し、デフォルトの権限をシードしますか？",
+      "stepSeed": "デフォルトの権限とロールをシードする："
     },
     "guestNotEnabled": "ゲストチケットは有効になっていません。",
     "ticketNotFound": "チケットが見つかりません。"

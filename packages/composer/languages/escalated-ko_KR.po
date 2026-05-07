@@ -2270,6 +2270,18 @@ msgstr "4. Vue 컴포넌트 설치: vendor/escalated/resources/js/에서 복사"
 msgid "commands.install.step5"
 msgstr "5. Escalated 페이지를 포함하도록 Inertia 페이지 리졸버 설정"
 
+msgid "commands.install.runningMigrations"
+msgstr "마이그레이션 실행 중"
+
+msgid "commands.install.seedingPermissions"
+msgstr "권한과 역할 시딩 중"
+
+msgid "commands.install.runMigrationsConfirm"
+msgstr "지금 마이그레이션을 실행하고 기본 권한을 시드할까요?"
+
+msgid "commands.install.stepSeed"
+msgstr "기본 권한과 역할 시딩:"
+
 msgid "commands.guestNotEnabled"
 msgstr "게스트 티켓이 활성화되지 않았습니다."
 

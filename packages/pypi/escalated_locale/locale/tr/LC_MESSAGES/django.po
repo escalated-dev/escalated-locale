@@ -2270,6 +2270,18 @@ msgstr "4. Vue bilesenlerini kurun: vendor/escalated/resources/js/ kaynagindan k
 msgid "commands.install.step5"
 msgstr "5. Escalated sayfalarini icermesi icin Inertia sayfa cozucuyu ayarlayin"
 
+msgid "commands.install.runningMigrations"
+msgstr "Geçişler çalıştırılıyor"
+
+msgid "commands.install.seedingPermissions"
+msgstr "İzinler ve roller ekiliyor"
+
+msgid "commands.install.runMigrationsConfirm"
+msgstr "Geçişleri şimdi çalıştır ve varsayılan izinleri oluştur?"
+
+msgid "commands.install.stepSeed"
+msgstr "Varsayılan izinleri ve rolleri ekle:"
+
 msgid "commands.guestNotEnabled"
 msgstr "Misafir destek talepleri etkin degil."
 

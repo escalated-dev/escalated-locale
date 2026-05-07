@@ -805,6 +805,10 @@ commands:
     step3: "3. Voeg escalated_agent? en escalated_admin? methoden toe aan je User model"
     step4: "4. Installeer Vue componenten: kopieer van vendor/escalated/resources/js/"
     step5: "5. Stel de Inertia page resolver in om Escalated paginas op te nemen"
+    runningMigrations: "Migraties worden uitgevoerd"
+    seedingPermissions: "Permissies en rollen zaaien"
+    runMigrationsConfirm: "Migraties uitvoeren en standaardrechten nu aanmaken?"
+    stepSeed: "Standaardrechten en -rollen aanmaken:"
   guestNotEnabled: "Gasttickets zijn niet ingeschakeld."
   ticketNotFound: "Ticket niet gevonden."
 emails:

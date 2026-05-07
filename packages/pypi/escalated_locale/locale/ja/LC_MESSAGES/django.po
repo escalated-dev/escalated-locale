@@ -2270,6 +2270,18 @@ msgstr "4. Vueコンポーネントをインストール: vendor/escalated/resou
 msgid "commands.install.step5"
 msgstr "5. EscalatedページをInertiaページリゾルバに設定"
 
+msgid "commands.install.runningMigrations"
+msgstr "マイグレーションを実行中"
+
+msgid "commands.install.seedingPermissions"
+msgstr "権限とロールをシード中"
+
+msgid "commands.install.runMigrationsConfirm"
+msgstr "今すぐマイグレーションを実行し、デフォルトの権限をシードしますか？"
+
+msgid "commands.install.stepSeed"
+msgstr "デフォルトの権限とロールをシードする："
+
 msgid "commands.guestNotEnabled"
 msgstr "ゲストチケットは有効になっていません。"
 

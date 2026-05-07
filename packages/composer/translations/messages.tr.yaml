@@ -805,6 +805,10 @@ commands:
     step3: "3. User modeline escalated_agent? ve escalated_admin? metodlarini ekleyin"
     step4: "4. Vue bilesenlerini kurun: vendor/escalated/resources/js/ kaynagindan kopyalayin"
     step5: "5. Escalated sayfalarini icermesi icin Inertia sayfa cozucuyu ayarlayin"
+    runningMigrations: "Geçişler çalıştırılıyor"
+    seedingPermissions: "İzinler ve roller ekiliyor"
+    runMigrationsConfirm: "Geçişleri şimdi çalıştır ve varsayılan izinleri oluştur?"
+    stepSeed: "Varsayılan izinleri ve rolleri ekle:"
   guestNotEnabled: "Misafir destek talepleri etkin degil."
   ticketNotFound: "Destek talebi bulunamadi."
 emails:

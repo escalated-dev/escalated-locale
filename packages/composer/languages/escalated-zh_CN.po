@@ -2270,6 +2270,18 @@ msgstr "4. 安装Vue组件：从vendor/escalated/resources/js/复制"
 msgid "commands.install.step5"
 msgstr "5. 设置Inertia页面解析器以包含Escalated页面"
 
+msgid "commands.install.runningMigrations"
+msgstr "正在运行迁移"
+
+msgid "commands.install.seedingPermissions"
+msgstr "正在初始化权限和角色"
+
+msgid "commands.install.runMigrationsConfirm"
+msgstr "现在运行迁移并初始化默认权限？"
+
+msgid "commands.install.stepSeed"
+msgstr "初始化默认权限和角色："
+
 msgid "commands.guestNotEnabled"
 msgstr "访客工单未启用。"
 

@@ -2270,6 +2270,18 @@ msgstr "4. Установите компоненты Vue: скопируйте �
 msgid "commands.install.step5"
 msgstr "5. Настройте Inertia page resolver для включения страниц Escalated"
 
+msgid "commands.install.runningMigrations"
+msgstr "Выполнение миграций"
+
+msgid "commands.install.seedingPermissions"
+msgstr "Заполнение разрешений и ролей"
+
+msgid "commands.install.runMigrationsConfirm"
+msgstr "Выполнить миграции и заполнить стандартные разрешения сейчас?"
+
+msgid "commands.install.stepSeed"
+msgstr "Заполнить стандартные разрешения и роли:"
+
 msgid "commands.guestNotEnabled"
 msgstr "Гостевые заявки не включены."
 

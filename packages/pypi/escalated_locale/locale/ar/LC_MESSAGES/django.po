@@ -2270,6 +2270,18 @@ msgstr "4. ثبّت مكونات Vue: انسخ من vendor/escalated/resources/j
 msgid "commands.install.step5"
 msgstr "5. قم بإعداد محلل صفحات Inertia ليشمل صفحات Escalated"
 
+msgid "commands.install.runningMigrations"
+msgstr "تشغيل الترحيلات"
+
+msgid "commands.install.seedingPermissions"
+msgstr "زرع الأذونات والأدوار"
+
+msgid "commands.install.runMigrationsConfirm"
+msgstr "هل تريد تشغيل الترحيلات وزرع الأذونات الافتراضية الآن؟"
+
+msgid "commands.install.stepSeed"
+msgstr "زرع الأذونات والأدوار الافتراضية:"
+
 msgid "commands.guestNotEnabled"
 msgstr "تذاكر الضيوف غير مفعّلة."
 

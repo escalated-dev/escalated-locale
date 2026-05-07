@@ -831,7 +831,11 @@
       "step2": "2. Konfigurieren Sie config/initializers/escalated.rb",
       "step3": "3. Fügen Sie die Methoden escalated_agent? und escalated_admin? zu Ihrem User-Modell hinzu",
       "step4": "4. Installieren Sie Vue-Komponenten: kopieren Sie aus vendor/escalated/resources/js/",
-      "step5": "5. Richten Sie den Inertia-Seitenresolver ein, um Escalated-Seiten einzubeziehen"
+      "step5": "5. Richten Sie den Inertia-Seitenresolver ein, um Escalated-Seiten einzubeziehen",
+      "runningMigrations": "Migrationen werden ausgeführt",
+      "seedingPermissions": "Berechtigungen und Rollen werden eingerichtet",
+      "runMigrationsConfirm": "Migrationen jetzt ausführen und Standardberechtigungen anlegen?",
+      "stepSeed": "Standardberechtigungen und -rollen anlegen:"
     },
     "guestNotEnabled": "Gast-Tickets sind nicht aktiviert.",
     "ticketNotFound": "Ticket nicht gefunden."

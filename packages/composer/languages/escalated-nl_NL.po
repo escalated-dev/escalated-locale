@@ -2270,6 +2270,18 @@ msgstr "4. Installeer Vue componenten: kopieer van vendor/escalated/resources/js
 msgid "commands.install.step5"
 msgstr "5. Stel de Inertia page resolver in om Escalated paginas op te nemen"
 
+msgid "commands.install.runningMigrations"
+msgstr "Migraties worden uitgevoerd"
+
+msgid "commands.install.seedingPermissions"
+msgstr "Permissies en rollen zaaien"
+
+msgid "commands.install.runMigrationsConfirm"
+msgstr "Migraties uitvoeren en standaardrechten nu aanmaken?"
+
+msgid "commands.install.stepSeed"
+msgstr "Standaardrechten en -rollen aanmaken:"
+
 msgid "commands.guestNotEnabled"
 msgstr "Gasttickets zijn niet ingeschakeld."
 

@@ -856,7 +856,11 @@
       "step2": "2. Skonfiguruj config/initializers/escalated.rb",
       "step3": "3. Dodaj metody escalated_agent? i escalated_admin? do modelu User",
       "step4": "4. Zainstaluj komponenty Vue: skopiuj z vendor/escalated/resources/js/",
-      "step5": "5. Skonfiguruj resolver stron Inertia aby uwzglednial strony Escalated"
+      "step5": "5. Skonfiguruj resolver stron Inertia aby uwzglednial strony Escalated",
+      "runningMigrations": "Uruchamianie migracji",
+      "seedingPermissions": "Tworzenie uprawnień i ról",
+      "runMigrationsConfirm": "Uruchomić migracje i utworzyć domyślne uprawnienia teraz?",
+      "stepSeed": "Utwórz domyślne uprawnienia i role:"
     },
     "guestNotEnabled": "Zgloszenia gosci nie sa wlaczone.",
     "ticketNotFound": "Zgloszenie nie znalezione."

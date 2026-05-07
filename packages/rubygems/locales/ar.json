@@ -856,7 +856,11 @@
       "step2": "2. قم بتهيئة config/initializers/escalated.rb",
       "step3": "3. أضف طرق escalated_agent? و escalated_admin? إلى نموذج المستخدم",
       "step4": "4. ثبّت مكونات Vue: انسخ من vendor/escalated/resources/js/",
-      "step5": "5. قم بإعداد محلل صفحات Inertia ليشمل صفحات Escalated"
+      "step5": "5. قم بإعداد محلل صفحات Inertia ليشمل صفحات Escalated",
+      "runningMigrations": "تشغيل الترحيلات",
+      "seedingPermissions": "زرع الأذونات والأدوار",
+      "runMigrationsConfirm": "هل تريد تشغيل الترحيلات وزرع الأذونات الافتراضية الآن؟",
+      "stepSeed": "زرع الأذونات والأدوار الافتراضية:"
     },
     "guestNotEnabled": "تذاكر الضيوف غير مفعّلة.",
     "ticketNotFound": "التذكرة غير موجودة."

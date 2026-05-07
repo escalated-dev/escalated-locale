@@ -2270,6 +2270,18 @@ msgstr "4. Zainstaluj komponenty Vue: skopiuj z vendor/escalated/resources/js/"
 msgid "commands.install.step5"
 msgstr "5. Skonfiguruj resolver stron Inertia aby uwzglednial strony Escalated"
 
+msgid "commands.install.runningMigrations"
+msgstr "Uruchamianie migracji"
+
+msgid "commands.install.seedingPermissions"
+msgstr "Tworzenie uprawnień i ról"
+
+msgid "commands.install.runMigrationsConfirm"
+msgstr "Uruchomić migracje i utworzyć domyślne uprawnienia teraz?"
+
+msgid "commands.install.stepSeed"
+msgstr "Utwórz domyślne uprawnienia i role:"
+
 msgid "commands.guestNotEnabled"
 msgstr "Zgloszenia gosci nie sa wlaczone."
 

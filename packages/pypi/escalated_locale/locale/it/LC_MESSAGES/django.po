@@ -2270,6 +2270,18 @@ msgstr "4. Installa i componenti Vue: copia da vendor/escalated/resources/js/"
 msgid "commands.install.step5"
 msgstr "5. Configura il resolver delle pagine Inertia per includere le pagine Escalated"
 
+msgid "commands.install.runningMigrations"
+msgstr "Esecuzione delle migrazioni"
+
+msgid "commands.install.seedingPermissions"
+msgstr "Inserimento permessi e ruoli"
+
+msgid "commands.install.runMigrationsConfirm"
+msgstr "Eseguire ora le migrazioni e creare i permessi predefiniti?"
+
+msgid "commands.install.stepSeed"
+msgstr "Inserisci i permessi e ruoli predefiniti:"
+
 msgid "commands.guestNotEnabled"
 msgstr "I ticket per gli ospiti non sono abilitati."
 

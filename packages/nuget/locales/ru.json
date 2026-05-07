@@ -856,7 +856,11 @@
       "step2": "2. Настройте config/initializers/escalated.rb",
       "step3": "3. Добавьте методы escalated_agent? и escalated_admin? в модель User",
       "step4": "4. Установите компоненты Vue: скопируйте из vendor/escalated/resources/js/",
-      "step5": "5. Настройте Inertia page resolver для включения страниц Escalated"
+      "step5": "5. Настройте Inertia page resolver для включения страниц Escalated",
+      "runningMigrations": "Выполнение миграций",
+      "seedingPermissions": "Заполнение разрешений и ролей",
+      "runMigrationsConfirm": "Выполнить миграции и заполнить стандартные разрешения сейчас?",
+      "stepSeed": "Заполнить стандартные разрешения и роли:"
     },
     "guestNotEnabled": "Гостевые заявки не включены.",
     "ticketNotFound": "Заявка не найдена."

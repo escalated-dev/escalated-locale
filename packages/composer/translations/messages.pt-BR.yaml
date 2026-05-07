@@ -805,6 +805,10 @@ commands:
     step3: "3. Adicione os metodos escalated_agent? e escalated_admin? ao seu modelo User"
     step4: "4. Instale os componentes Vue: copie de vendor/escalated/resources/js/"
     step5: "5. Configure o resolver de paginas Inertia para incluir as paginas Escalated"
+    runningMigrations: "Executando migrações"
+    seedingPermissions: "Semeando permissões e funções"
+    runMigrationsConfirm: "Executar migrações e semear permissões padrão agora?"
+    stepSeed: "Semear permissões e funções padrão:"
   guestNotEnabled: "Chamados de convidados nao estao habilitados."
   ticketNotFound: "Chamado nao encontrado."
 emails:

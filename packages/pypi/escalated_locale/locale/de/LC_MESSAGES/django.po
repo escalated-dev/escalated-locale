@@ -2270,6 +2270,18 @@ msgstr "4. Installieren Sie Vue-Komponenten: kopieren Sie aus vendor/escalated/r
 msgid "commands.install.step5"
 msgstr "5. Richten Sie den Inertia-Seitenresolver ein, um Escalated-Seiten einzubeziehen"
 
+msgid "commands.install.runningMigrations"
+msgstr "Migrationen werden ausgeführt"
+
+msgid "commands.install.seedingPermissions"
+msgstr "Berechtigungen und Rollen werden eingerichtet"
+
+msgid "commands.install.runMigrationsConfirm"
+msgstr "Migrationen jetzt ausführen und Standardberechtigungen anlegen?"
+
+msgid "commands.install.stepSeed"
+msgstr "Standardberechtigungen und -rollen anlegen:"
+
 msgid "commands.guestNotEnabled"
 msgstr "Gast-Tickets sind nicht aktiviert."
 

@@ -805,6 +805,10 @@ commands:
     step3: "3. 将escalated_agent?和escalated_admin?方法添加到User模型"
     step4: "4. 安装Vue组件：从vendor/escalated/resources/js/复制"
     step5: "5. 设置Inertia页面解析器以包含Escalated页面"
+    runningMigrations: "正在运行迁移"
+    seedingPermissions: "正在初始化权限和角色"
+    runMigrationsConfirm: "现在运行迁移并初始化默认权限？"
+    stepSeed: "初始化默认权限和角色："
   guestNotEnabled: "访客工单未启用。"
   ticketNotFound: "工单未找到。"
 emails:

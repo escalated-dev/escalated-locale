@@ -782,6 +782,10 @@ fr:
       step3: "3. Ajoutez les méthodes escalated_agent? et escalated_admin? à votre modèle User"
       step4: "4. Installez les composants Vue : copiez depuis vendor/escalated/resources/js/"
       step5: "5. Configurez le résolveur de pages Inertia pour inclure les pages Escalated"
+      runningMigrations: "Exécution des migrations"
+      seedingPermissions: "Création des permissions et rôles"
+      runMigrationsConfirm: "Exécuter les migrations et créer les permissions par défaut maintenant ?"
+      stepSeed: "Créer les permissions et rôles par défaut :"
     guestNotEnabled: "Les tickets invité ne sont pas activés."
     ticketNotFound: "Ticket introuvable."
   emails:

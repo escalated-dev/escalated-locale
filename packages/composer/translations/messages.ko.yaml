@@ -805,6 +805,10 @@ commands:
     step3: "3. User 모델에 escalated_agent?와 escalated_admin? 메서드 추가"
     step4: "4. Vue 컴포넌트 설치: vendor/escalated/resources/js/에서 복사"
     step5: "5. Escalated 페이지를 포함하도록 Inertia 페이지 리졸버 설정"
+    runningMigrations: "마이그레이션 실행 중"
+    seedingPermissions: "권한과 역할 시딩 중"
+    runMigrationsConfirm: "지금 마이그레이션을 실행하고 기본 권한을 시드할까요?"
+    stepSeed: "기본 권한과 역할 시딩:"
   guestNotEnabled: "게스트 티켓이 활성화되지 않았습니다."
   ticketNotFound: "티켓을 찾을 수 없습니다."
 emails:

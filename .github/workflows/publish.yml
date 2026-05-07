@@ -13,6 +13,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Stamp version from tag
+        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish npm package
@@ -50,6 +52,8 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
+      - name: Stamp version from tag
+        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish gem
@@ -76,6 +80,8 @@ jobs:
           distribution: temurin
           java-version: "17"
           cache: maven
+      - name: Stamp version from tag
+        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish Maven artifact
@@ -98,6 +104,8 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "8.0.x"
+      - name: Stamp version from tag
+        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish NuGet package
@@ -120,6 +128,8 @@ jobs:
         with:
           otp-version: "27.0"
           elixir-version: "1.17.3"
+      - name: Stamp version from tag
+        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish Hex package
@@ -144,6 +154,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Stamp version from tag
+        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish PyPI package

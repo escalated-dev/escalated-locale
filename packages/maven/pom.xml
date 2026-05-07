@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dev.escalated</groupId>
   <artifactId>escalated-locale</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.8</version>
   <name>escalated-locale</name>
   <description>Canonical Escalated locale bundle for Java consumers.</description>
   <packaging>jar</packaging>

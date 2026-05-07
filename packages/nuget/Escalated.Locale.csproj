@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <PackageId>Escalated.Locale</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.1.8</Version>
     <Authors>Escalated</Authors>
     <Description>Canonical Escalated locale bundle for .NET consumers.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

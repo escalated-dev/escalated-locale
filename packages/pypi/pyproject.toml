@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "escalated-locale"
-version = "0.1.0"
+version = "0.1.8"
 description = "Central translation strings for the Escalated portfolio (consumed by escalated-django and any other Python project)."
 readme = "README.md"
 license = { text = "MIT" }

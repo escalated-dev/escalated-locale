@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "escalated-locale"
-  spec.version       = "0.1.0"
+  spec.version       = "0.1.8"
   spec.summary       = "Canonical Escalated locale bundle"
   spec.authors       = ["Escalated"]
   spec.files         = Dir["lib/**/*", "locales/*.json", "locales/*.yml", "README.md"]

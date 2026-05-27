@@ -1,5 +1,7 @@
 # escalated-locale
 
+**Website:** [escalated.dev](https://escalated.dev)
+
 `escalated-locale` is the central source of truth for Escalated translations. It consolidates locale catalogs from the Vue frontend and the framework plugins into a single canonical `locales/{locale}.json` set, then republishes that data through thin ecosystem-specific packages.
 
 ## Architecture

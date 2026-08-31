@@ -1,0 +1,11 @@
+version: 2
+updates:
+  # This repo ships locale data only — it declares no third-party runtime
+  # dependencies in any of its npm / composer / go / gem / mix / nuget
+  # package manifests. GitHub Actions is the only thing here that can drift.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"

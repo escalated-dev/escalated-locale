@@ -1,5 +1,9 @@
 # escalated-locale
 
+[![Packagist Downloads](https://img.shields.io/packagist/dt/escalated-dev/locale.svg)](https://packagist.org/packages/escalated-dev/locale/stats)
+[![npm downloads](https://img.shields.io/npm/dm/@escalated-dev/locale)](https://www.npmjs.com/package/@escalated-dev/locale)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 **Website:** [escalated.dev](https://escalated.dev)
 
 `escalated-locale` is the central source of truth for Escalated translations. It consolidates locale catalogs from the Vue frontend and the framework plugins into a single canonical `locales/{locale}.json` set, then republishes that data through thin ecosystem-specific packages.

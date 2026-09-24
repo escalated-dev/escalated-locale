@@ -3,6 +3,7 @@
 [![Packagist Downloads](https://img.shields.io/packagist/dt/escalated-dev/locale.svg)](https://packagist.org/packages/escalated-dev/locale/stats)
 [![npm downloads](https://img.shields.io/npm/dm/@escalated-dev/locale)](https://www.npmjs.com/package/@escalated-dev/locale)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Views](https://hits.sh/github.com/escalated-dev/escalated-locale.svg?style=flat&label=views&color=007ec6)](https://hits.sh/github.com/escalated-dev/escalated-locale/)
 
 **Website:** [escalated.dev](https://escalated.dev)
 

@@ -140,3 +140,7 @@ Semantic versioning applies to the canonical JSON keys and wrapper APIs:
 - Major: key removals, key renames, or breaking wrapper API changes.
 - Minor: new keys or new locales.
 - Patch: string updates, fallback fixes, and packaging-only changes.
+
+## License
+
+MIT - Copyright (c) Escalated.dev. See [LICENSE](LICENSE).

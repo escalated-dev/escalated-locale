@@ -97,9 +97,14 @@ String label = Locale.translate("ticket.subject", "fr", Map.of());
 ```csharp
 using Escalated.Locale;
 
-var messages = LocaleData.GetLocaleData("fr");
-var label = LocaleData.Translate("ticket.subject", "fr");
+var messages = LocaleProvider.GetLocaleData("fr");
+var label = LocaleProvider.Translate("nav.admin", "fr-CA");
 ```
+
+The .NET 8 wrapper embeds all catalogs and falls back through parent cultures
+to English. `LocaleData` remains a compatible alias. See the
+[NuGet wrapper documentation](packages/nuget/README.md) for named placeholders,
+`IStringLocalizer` integration and source/package validation.
 
 ### Hex
 

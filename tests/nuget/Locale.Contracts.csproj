@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(LocalePackageVersion)' == ''">
+    <ProjectReference Include="../../packages/nuget/Escalated.Locale.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(LocalePackageVersion)' != ''">
+    <PackageReference Include="Escalated.Locale" Version="$(LocalePackageVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="../../locales/*.json" Link="catalogs/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

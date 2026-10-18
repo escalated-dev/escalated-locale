@@ -24,6 +24,8 @@ packages/maven/target/
 # .NET build
 packages/nuget/bin/
 packages/nuget/obj/
+tests/nuget/bin/
+tests/nuget/obj/
 
 # Hex build
 packages/hex/_build/

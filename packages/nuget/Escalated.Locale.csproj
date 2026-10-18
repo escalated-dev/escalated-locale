@@ -6,12 +6,15 @@
     <Authors>Escalated</Authors>
     <Description>Canonical Escalated locale bundle for .NET consumers.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="locales\*.json" />
+    <None Update="README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
   <ItemGroup>

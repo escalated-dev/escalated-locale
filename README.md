@@ -1,151 +1,37 @@
-# escalated-locale
+<p align="center">
+  <a href="https://escalated.dev"><img src="https://raw.githubusercontent.com/escalated-dev/escalated/main/docs/assets/readme/logo.png" width="56" height="56" alt="Escalated"></a>
+</p>
 
-[![Packagist Downloads](https://img.shields.io/packagist/dt/escalated-dev/locale.svg)](https://packagist.org/packages/escalated-dev/locale/stats)
-[![npm downloads](https://img.shields.io/npm/dm/@escalated-dev/locale)](https://www.npmjs.com/package/@escalated-dev/locale)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Views](https://hits.sh/github.com/escalated-dev/escalated-locale.svg?style=flat&label=views&color=007ec6)](https://hits.sh/github.com/escalated-dev/escalated-locale/)
+<h1 align="center">Escalated Locale</h1>
 
-**Website:** [escalated.dev](https://escalated.dev)
+<p align="center">Translations for every Escalated backend, from one source.</p>
 
-`escalated-locale` is the central source of truth for Escalated translations. It consolidates locale catalogs from the Vue frontend and the framework plugins into a single canonical `locales/{locale}.json` set, then republishes that data through thin ecosystem-specific packages.
+<p align="center">
+  <a href="https://escalated.dev"><b>Website</b></a> ·
+  <a href="https://escalated.dev/docs"><b>Docs</b></a> ·
+  <a href="https://escalated.dev/cloud"><b>Cloud</b></a> ·
+  <a href="https://github.com/escalated-dev/escalated-locale/releases"><b>Releases</b></a>
+</p>
 
-## Architecture
+This repo keeps the canonical translation catalogues for all 14 Escalated locales and republishes them as npm, Composer, RubyGems, PyPI, Maven, NuGet, Hex and Go packages. It's for Escalated maintainers and translators; your app gets these strings through its Escalated package.
 
-```text
-portfolio source repos
-  -> escalated-locale/locales/*.json
-     -> npm package        (@escalated-dev/locale)
-     -> Composer package   (escalated-dev/locale)
-     -> RubyGem            (escalated-locale)
-     -> PyPI package       (escalated-locale)
-     -> Maven package      (dev.escalated:escalated-locale)
-     -> NuGet package      (Escalated.Locale)
-     -> Hex package        (:escalated_locale)
-     -> Go module          (github.com/escalated-dev/escalated-locale/packages/go)
-        -> consumed by framework plugins
-           -> merged with repo-local overrides at app boot
-```
-
-## How To Add A Translation
-
-1. Update the source translation in the portfolio repo, or edit `locales/en.json` directly if the central package is now the canonical owner.
-2. Run `python scripts/build_locales.py` (regenerates the canonical JSON from upstream sources, if needed).
-3. Run the sync script: `bash scripts/sync.sh` (Linux/macOS/git-bash) or `pwsh ./scripts/sync.ps1` (Windows). Both write the same outputs — JSON copies into each `packages/*/` plus framework-native artifacts (Rails YAML, Django/WP gettext, Symfony YAML, Spring properties, Phoenix .po) via `scripts/build_native_artifacts.py`.
-4. Commit the locale changes and the synced package copies.
-5. Tag a release when the bundle is ready to publish.
-
-## How To Add A Locale
-
-1. Copy `locales/en.json` to `locales/{locale}.json`.
-2. Translate the values.
-3. Run `bash scripts/sync.sh` (or `pwsh ./scripts/sync.ps1`).
-4. Commit the new locale and synced package copies.
-
-## Override Pattern
-
-Each plugin should load the package locale data first, then layer its own framework-local overrides on top. The plugin remains free to keep framework-specific translations or emergency patches in its own repo; the central package provides the base catalog and fallback chain.
-
-## Conventions
-
-- **Locale set**: `ar`, `de`, `en`, `es`, `fr`, `it`, `ja`, `ko`, `nl`, `pl`, `pt-BR`, `ru`, `tr`, `zh-CN`. New locales are added by copying `en.json`.
-- **Placeholder syntax**: `{name}` (curly-brace named tokens, e.g. `"Welcome {firstName}"`). The wrapper `t()` helpers interpolate these.
-- **Key naming**: lowerCamelCase with dot-separated namespaces (e.g. `ticket.status.open`).
-- **Conflict resolution** (when the same key appeared in multiple source repos with divergent values): Vue frontend wins, then Laravel, Filament, Rails, the compact backend cluster, Django, and WordPress in that order.
-- **Gettext namespaces**: Django strings live under `djangoStrings.*` and WordPress strings under `wordpressStrings.*`, keyed deterministically from the English `msgid`.
-- **Missing translations**: a key absent from a non-English locale falls back to the English value (no empty strings shipped).
-
-## Packages
-
-### npm
+## Usage
 
 ```js
 const { getLocaleData, t } = require('@escalated-dev/locale')
 
-const messages = getLocaleData('fr')
 const label = t('ticket.subject', 'fr')
 ```
 
-### Composer
+## Learn more
 
-```php
-use Escalated\Locale\Locale;
-
-$messages = Locale::getLocaleData('fr');
-$label = Locale::translate('ticket.subject', 'fr');
-```
-
-### RubyGems
-
-```rb
-require "escalated/locale"
-
-messages = Escalated::Locale.get_locale_data("fr")
-label = Escalated::Locale.t("ticket.subject", "fr")
-```
-
-### Maven
-
-```java
-import dev.escalated.locale.Locale;
-
-Map<String, Object> messages = Locale.getLocaleData("fr");
-String label = Locale.translate("ticket.subject", "fr", Map.of());
-```
-
-### NuGet
-
-```csharp
-using Escalated.Locale;
-
-var messages = LocaleProvider.GetLocaleData("fr");
-var label = LocaleProvider.Translate("nav.admin", "fr-CA");
-```
-
-The .NET 8 wrapper embeds all catalogs and falls back through parent cultures
-to English. `LocaleData` remains a compatible alias. See the
-[NuGet wrapper documentation](packages/nuget/README.md) for named placeholders,
-`IStringLocalizer` integration and source/package validation.
-
-### Hex
-
-```elixir
-messages = Escalated.Locale.get_locale_data("fr")
-label = Escalated.Locale.t("ticket.subject", "fr")
-```
-
-### PyPI (Python / Django)
-
-```python
-from escalated_locale import get_locale_data, get_django_locale_path
-
-messages = get_locale_data("fr")  # returns dict from locales/fr.json
-
-# In Django settings.py, layer this dir into LOCALE_PATHS so
-# escalated_locale/locale/<lang>/LC_MESSAGES/django.{po,mo} is picked up
-# by gettext.
-LOCALE_PATHS = [
-    BASE_DIR / "locale",  # project overrides (highest priority)
-    str(get_django_locale_path()),
-]
-```
-
-### Go
-
-```go
-import escalatedlocale "github.com/escalated-dev/escalated-locale/packages/go"
-
-messages := escalatedlocale.GetLocaleData("fr")
-label, _ := escalatedlocale.Translate("ticket.subject", "fr", nil)
-```
-
-## Versioning
-
-Semantic versioning applies to the canonical JSON keys and wrapper APIs:
-
-- Major: key removals, key renames, or breaking wrapper API changes.
-- Minor: new keys or new locales.
-- Patch: string updates, fallback fixes, and packaging-only changes.
+- [Architecture, overrides, conventions and versioning](docs/architecture.md)
+- [Adding a translation or a locale](docs/adding-translations.md)
+- [Using each package: npm, Composer, RubyGems, Maven, NuGet, Hex, PyPI, Go](docs/packages.md)
+- [Releasing](RELEASE.md)
+- [Escalated docs](https://escalated.dev/docs)
+- [Escalated](https://github.com/escalated-dev/escalated), the main repo
 
 ## License
 
-MIT - Copyright (c) Escalated.dev. See [LICENSE](LICENSE).
+MIT. Copyright (c) 2026 Escalated.dev. See [LICENSE](LICENSE).

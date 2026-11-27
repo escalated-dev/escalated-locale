@@ -4,17 +4,30 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to publish again (e.g. v0.1.8)
+        required: true
+        type: string
+
+# A tag push publishes that tag. "Run workflow" publishes an existing tag, for
+# example to fill a registry whose secret was added after the release.
+env:
+  TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
 
 jobs:
   npm:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.TAG }}
       - uses: actions/setup-node@v7
         with:
           node-version: "22"
       - name: Stamp version from tag
-        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
+        run: bash scripts/stamp_version.sh "${TAG#v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish npm package
@@ -36,12 +49,19 @@ jobs:
           # permissions issue at the registry side, not a workflow plumbing bug.
           npm whoami || { echo "::error::npm whoami failed — token isn't authenticating"; exit 1; }
           cd packages/npm
+          # A manual re-run for an existing tag must not fail on a version npm already has.
+          if npm view "$(node -p "require('./package.json').name")@$(node -p "require('./package.json').version")" version >/dev/null 2>&1; then
+            echo "::notice title=npm publish skipped::This version is already on npm."
+            exit 0
+          fi
           npm publish --access public
 
   composer:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.TAG }}
       - name: Composer publish note
         run: echo "Packagist should auto-sync this repository. No push step is required here."
 
@@ -49,11 +69,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.TAG }}
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
       - name: Stamp version from tag
-        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
+        run: bash scripts/stamp_version.sh "${TAG#v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish gem
@@ -75,13 +97,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.TAG }}
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "17"
           cache: maven
       - name: Stamp version from tag
-        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
+        run: bash scripts/stamp_version.sh "${TAG#v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish Maven artifact
@@ -101,11 +125,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.TAG }}
       - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: "8.0.x"
       - name: Stamp version from tag
-        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
+        run: bash scripts/stamp_version.sh "${TAG#v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish NuGet package
@@ -124,12 +150,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.TAG }}
       - uses: erlef/setup-beam@v1
         with:
           otp-version: "27.0"
           elixir-version: "1.17.3"
       - name: Stamp version from tag
-        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
+        run: bash scripts/stamp_version.sh "${TAG#v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish Hex package
@@ -151,11 +179,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.TAG }}
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Stamp version from tag
-        run: bash scripts/stamp_version.sh "${GITHUB_REF#refs/tags/v}"
+        run: bash scripts/stamp_version.sh "${TAG#v}"
       - shell: pwsh
         run: ./scripts/sync.ps1
       - name: Publish PyPI package
@@ -180,6 +210,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.TAG }}
       - name: Go publish note
         run: echo "Go consumers read from Git tags directly. No registry publish step is required."
 
@@ -191,11 +223,13 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.TAG }}
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          tag="${GITHUB_REF#refs/tags/}"
+          tag="$TAG"
           # If the release already exists (e.g. publish workflow re-ran), skip cleanly.
           if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             echo "Release $tag already exists. Skipping creation."

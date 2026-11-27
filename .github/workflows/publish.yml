@@ -22,7 +22,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           if [ -z "${NPM_TOKEN}" ]; then
-            echo "NPM_TOKEN is not configured. Skipping npm publish."
+            echo "::warning title=npm publish skipped::NPM_TOKEN is not configured."
             exit 0
           fi
           # Diagnostic: token length (no value leakage). 36 = legacy classic, 43 = npm_-prefixed.
@@ -59,7 +59,7 @@ jobs:
       - name: Publish gem
         run: |
           if [ -z "${RUBYGEMS_API_KEY}" ]; then
-            echo "RUBYGEMS_API_KEY is not configured. Skipping RubyGems publish."
+            echo "::warning title=RubyGems publish skipped::RUBYGEMS_API_KEY is not configured."
             exit 0
           fi
           mkdir -p ~/.gem
@@ -87,7 +87,7 @@ jobs:
       - name: Publish Maven artifact
         run: |
           if [ -z "${MAVEN_USERNAME}" ] || [ -z "${MAVEN_PASSWORD}" ] || [ -z "${MAVEN_GPG_PASSPHRASE}" ]; then
-            echo "Maven Central secrets are incomplete. Skipping Maven publish."
+            echo "::warning title=Maven Central publish skipped::Maven Central secrets are incomplete."
             exit 0
           fi
           cd packages/maven
@@ -111,7 +111,7 @@ jobs:
       - name: Publish NuGet package
         run: |
           if [ -z "${NUGET_API_KEY}" ]; then
-            echo "NUGET_API_KEY is not configured. Skipping NuGet publish."
+            echo "::warning title=NuGet publish skipped::NUGET_API_KEY is not configured."
             exit 0
           fi
           cd packages/nuget
@@ -135,7 +135,7 @@ jobs:
       - name: Publish Hex package
         run: |
           if [ -z "${HEX_API_KEY}" ]; then
-            echo "HEX_API_KEY is not configured. Skipping Hex publish."
+            echo "::warning title=Hex publish skipped::HEX_API_KEY is not configured."
             exit 0
           fi
           cd packages/hex
@@ -161,7 +161,7 @@ jobs:
       - name: Publish PyPI package
         run: |
           if [ -z "${PYPI_API_TOKEN}" ]; then
-            echo "PYPI_API_TOKEN is not configured. Skipping PyPI publish."
+            echo "::warning title=PyPI publish skipped::PYPI_API_TOKEN is not configured."
             exit 0
           fi
           if [ ! -d packages/pypi ]; then
